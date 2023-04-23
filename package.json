@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,14 +12,16 @@
     "url": "git+https://github.com/FaureAlexis/intra-epitech-client.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "alexis.faure@epitech.eu",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/FaureAlexis/intra-epitech-client/issues"
   },
   "homepage": "https://github.com/FaureAlexis/intra-epitech-client#readme",
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
