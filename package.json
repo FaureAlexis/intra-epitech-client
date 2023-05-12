@@ -2,7 +2,13 @@
   "name": "intra-epitech-client",
   "version": "1.0.3",
   "description": "",
-  "main": "src/index.ts",
+  "main": "build/index",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "dev": "nodemon",
     "test": "jest",
