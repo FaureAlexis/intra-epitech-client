@@ -21,7 +21,7 @@ interface Item {
   title: string;
 }
 
-interface PreloadItem extends Array<any> {
+interface PreloadItem extends Array<number | string> {
   0: number;
   1: number;
   2: string;

@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import BaseService from "./base.service";
-import ModuleResponse, {Item} from "../types/Modules";
+import {Item} from "../types/Modules";
 import axios from "axios";
 import getAxiosConfig from "../utils/AxiosConfig";
 
