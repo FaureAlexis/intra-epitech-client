@@ -1,5 +1,7 @@
 # intra-epitech-client
 
+![Coverage](https://img.shields.io/codecov/c/github/FaureAlexis/intra-epitech-client) ![Stars](https://img.shields.io/github/stars/FaureAlexis/intra-epitech-client?style=social) ![NPM](https://img.shields.io/npm/dt/intra-epitech-client)
+
 ## Description
 
 This is a client for the intra-epitech API. It is written in TypeScript and is meant to be used in a NodeJS environment.
