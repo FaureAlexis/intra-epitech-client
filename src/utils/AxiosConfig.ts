@@ -1,8 +1,8 @@
 function getAxiosConfig(cookie: string) {
   return {
     headers: {
-      Cookie: cookie,
-      Referer: "https://intra.epitech.eu/",
+      cookie: cookie,
+      referer: "https://intra.epitech.eu/",
     },
   };
 }
