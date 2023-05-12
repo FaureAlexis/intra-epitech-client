@@ -1,6 +1,7 @@
-import { before } from "node:test";
 import EpitechClient from "../src";
 import IUser from "../src/types/User";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 let user: IUser;
 
