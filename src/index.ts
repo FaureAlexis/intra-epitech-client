@@ -2,6 +2,8 @@ import UserService from './services/user.service';
 import ELearningService from './services/elearning.service';
 import PlanningService from './services/planning.service';
 import NotificationsService from './services/notifications.service';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 class EpitechClient {
   cookie: string;
@@ -10,12 +12,16 @@ class EpitechClient {
   planning: PlanningService;
   notifications: NotificationsService;
 
-  constructor(cookie: string) {
-    if (!cookie) throw new Error('Cookie is required');
-    if (!cookie.startsWith("user=")) {
-      this.cookie = `user=${cookie}`;
+  constructor(cookie?: string) {
+    if (!cookie && !process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
+    if (cookie && !cookie.startsWith("user=")) {
+      throw new Error("Could not connect to Epitech Intranet. Please verify your cookie.");
+    } else if (cookie) {
+      this.cookie = cookie;
+    } else {
+      if (!process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
+      this.cookie = process.env.EPITECH_COOKIE as string;
     }
-    this.cookie = cookie;
     this.user = new UserService(this.cookie);
     this.elearning = new ELearningService(this.cookie);
     this.planning = new PlanningService(this.cookie);
@@ -36,7 +42,6 @@ class EpitechClient {
       return false;
     }
   }
-
 };
 
 

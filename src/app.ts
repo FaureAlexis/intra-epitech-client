@@ -1,6 +1,6 @@
 import EpitechClient from ".";
 
-const client = new EpitechClient("user=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImFsZXhpcy5mYXVyZUBlcGl0ZWNoLmV1IiwidHoiOm51bGwsImV4cCI6MTY4MjQwODkyNn0.ds3J7NBiBwKLM9cWi33NXjvLzkY4jzkY4KtR2V01PxU");
+const client = new EpitechClient();
 
 async function testClient() {
   const name = await client.user.getStudentName();
