@@ -14,9 +14,9 @@ describe("EpitechClient", () => {
         done();
     });
     it("should return a valid user name", async () => {
-        const client = new EpitechClient();
+        const client = new EpitechClient("user=randomcookie");
         const name = await client.user.getStudentName();
-        expect(name).toBe("Alexis FAURE");
+        expect(name).toBe("Anonymous user");
         return;
     });
 });
