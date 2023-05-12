@@ -8,6 +8,7 @@ let user: IUser;
 describe("UserService", () => {
     beforeAll(async () => {
         const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
+        console.log('cookie: ', client.cookie, ' env: ', process.env.EPITECH_COOKIE);
         user = await client.user.getStaticInfos();
         if (!user) {
             throw new Error("Could not find user");
