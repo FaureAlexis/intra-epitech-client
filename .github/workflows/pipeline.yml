@@ -1,0 +1,50 @@
+name: Intra Epitech Client CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+            node-version: '14.x'
+      - name: Install dependencies 
+        run: npm install
+      - name: Run Linter
+        run: npm run lint
+
+  check_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install dependencies 
+        run: npm install
+      - name: Run tests & get code coverage
+        run: npm test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install dependencies 
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

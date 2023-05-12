@@ -5,7 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf build && tsc",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run lint && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",

@@ -3,6 +3,7 @@ import ELearningService from './services/elearning.service';
 import PlanningService from './services/planning.service';
 import NotificationsService from './services/notifications.service';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 class EpitechClient {
