@@ -18,11 +18,11 @@ describe("EpitechClient", () => {
         const name = await client.user.getStudentName();
         expect(["Anonymous user", "Alexis FAURE"]).toContain(name);
         return;
-    });
+    }, 30000);
     it("should return a valid user name when using string", async () => {
         const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
         const name = await client.user.getStudentName();
         expect(["Anonymous user", "Alexis FAURE"]).toContain(name);
         return;
-    });
+    }, 30000);
 });
