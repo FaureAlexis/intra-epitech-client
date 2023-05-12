@@ -45,6 +45,10 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Configure git user
+        run: |
+          git config --global user.name "Epitech Intra Client CI"
+          git config --global user.email "alexis.faure@epitech.eu"s
       - name: Install dependencies 
         run: npm install
       - name: Bump version
