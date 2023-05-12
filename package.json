@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/FaureAlexis/intra-epitech-client.git"
   },
-  "keywords": [],
+  "keywords": ["epitech", "intra", "client", "api", "typescript", "intra.epitech.eu", "wrapper"],
   "author": "alexis.faure@epitech.eu",
   "license": "MIT",
   "bugs": {
