@@ -45,10 +45,10 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Bump version
-        run: npm version patch
       - name: Install dependencies 
         run: npm install
+      - name: Bump version
+        run: npm version patch
       - name: Build
         run: npm run build
       - name: NPM CI
