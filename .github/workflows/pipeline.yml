@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
             node-version: '16.x'
       - name: Install dependencies 
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Install dependencies 
@@ -41,13 +41,16 @@ jobs:
     needs: [check_lint, check_tests]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies 
         run: npm install
       - name: Build
         run: npm run build
+      - name: NPM CI
+        run: npm ci
       - name: Publish to NPM
         run: npm publish
         env:
