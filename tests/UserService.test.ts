@@ -7,8 +7,8 @@ let user: IUser;
 
 describe("UserService", () => {
     beforeAll(async () => {
+        jest.setTimeout(30000);
         const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
-        console.log('cookie: ', client.cookie.length, ' env: ', process.env.EPITECH_COOKIE?.length);
         user = await client.user.getStaticInfos();
         if (!user) {
             throw new Error("Could not find user");
