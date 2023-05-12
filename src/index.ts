@@ -29,7 +29,6 @@ class EpitechClient {
     this.notifications = new NotificationsService(this.cookie);
     this.testConnection().then((connected) => {
       if (!connected) throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
-      console.log('Connected to Epitech Intranet');
     }).catch((error) => {
       console.error(error);
       throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
