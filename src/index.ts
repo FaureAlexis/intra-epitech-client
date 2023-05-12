@@ -2,6 +2,7 @@ import UserService from './services/user.service';
 import ELearningService from './services/elearning.service';
 import PlanningService from './services/planning.service';
 import NotificationsService from './services/notifications.service';
+import ModuleService from './services/module.service';
 import ConnectError from './exceptions/ConnectError';
 import * as dotenv from 'dotenv';
 
@@ -13,6 +14,7 @@ class EpitechClient {
   elearning: ELearningService;
   planning: PlanningService;
   notifications: NotificationsService;
+  modules: ModuleService;
 
   constructor(cookie?: string) {
     if (!cookie && !process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
@@ -28,6 +30,7 @@ class EpitechClient {
     this.elearning = new ELearningService(this.cookie);
     this.planning = new PlanningService(this.cookie);
     this.notifications = new NotificationsService(this.cookie);
+    this.modules = new ModuleService(this.cookie);
     this.testConnection().then((connected) => {
       if (!connected) throw new ConnectError();
     }).catch((error) => {
