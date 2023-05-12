@@ -1,6 +1,6 @@
 {
   "name": "intra-epitech-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "build/index",
   "types": "build/index.d.ts",
@@ -25,7 +25,15 @@
     "type": "git",
     "url": "git+https://github.com/FaureAlexis/intra-epitech-client.git"
   },
-  "keywords": ["epitech", "intra", "client", "api", "typescript", "intra.epitech.eu", "wrapper"],
+  "keywords": [
+    "epitech",
+    "intra",
+    "client",
+    "api",
+    "typescript",
+    "intra.epitech.eu",
+    "wrapper"
+  ],
   "author": "alexis.faure@epitech.eu",
   "license": "MIT",
   "bugs": {
