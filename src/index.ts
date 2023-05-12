@@ -31,6 +31,7 @@ class EpitechClient {
     this.testConnection().then((connected) => {
       if (!connected) throw new ConnectError();
     }).catch((error) => {
+      console.error(this.cookie);
       console.error(error);
       throw new ConnectError();
     });
