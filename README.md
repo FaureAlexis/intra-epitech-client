@@ -16,8 +16,8 @@ EpitechClient is still in development. Here is a list of the features that are a
 -   [x] Get elearning infos/videos
 -   [x] Get student planning
 -   [x] Get student notifications
+-   [x] Get student modules
 -   [ ] Get student projects
--   [ ] Get student modules
 -   [ ] Get student marks
 -   [ ] Access to the intra filesystem
 
