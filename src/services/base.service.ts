@@ -11,6 +11,6 @@ class BaseService {
   setCookie(cookie: string) {
     this.cookie = cookie;
   }
-};
+}
 
 export default BaseService;

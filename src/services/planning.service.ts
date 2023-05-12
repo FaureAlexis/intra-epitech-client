@@ -11,7 +11,7 @@ class PlanningService extends BaseService {
 
   async getWholePlanning(): Promise<Planning> {
     if (!this.planning) {
-      const response = await axios.get(
+      const response: AxiosResponse = await axios.get(
         "https://intra.epitech.eu/planning/load?format=json",
         getAxiosConfig(this.cookie)
       );

@@ -1,5 +1,7 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable no-prototype-builtins */
 import BaseService from "./base.service";
-import ELearningResponse, {Module, ModuleClass, Step} from "../types/ELearning";
+import ELearningResponse, { Step } from "../types/ELearning";
 import getAxiosConfig from "../utils/AxiosConfig";
 import axios, { AxiosResponse } from "axios";
 

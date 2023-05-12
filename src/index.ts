@@ -31,8 +31,9 @@ class EpitechClient {
       if (!connected) throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
       console.log('Connected to Epitech Intranet');
     }).catch((error) => {
+      console.error(error);
       throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
-    })
+    });
   }
 
   async testConnection(): Promise<boolean> {
@@ -43,9 +44,6 @@ class EpitechClient {
       return false;
     }
   }
-};
-
-
-
+}
 
 export default EpitechClient;
