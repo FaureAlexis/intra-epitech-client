@@ -53,6 +53,8 @@ jobs:
         run: npm install
       - name: Bump version
         run: npm version patch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: npm run build
       - name: NPM CI
