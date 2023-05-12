@@ -61,6 +61,8 @@ coming soon
 
 If you want to contribute to this project, feel free to fork it and submit a pull request. I will review it as soon as possible. If you have any questions, you can contact me by email at [alexis.faure@epitech.eu](mailto:alexis.faure@epitech.eu).
 
+You can also open an issue if you find a bug or if you have a feature request.
+
 ### Run tests
 
 ```npm test```
