@@ -34,7 +34,7 @@ class UserService extends BaseService {
   async getPicture(): Promise<string> {
     const user = await this.getStaticInfos();
     if (!user.picture) throw new Error("User has no picture");
-    return user.picture;
+    return "https://intra.epitech.eu" + user.picture;
   }
 
   async getStudentName(): Promise<string> {
@@ -147,6 +147,27 @@ class UserService extends BaseService {
     } catch (e) {
       throw new Error('Unable to retrieve the netsoul statistics');
     }
+  }
+
+  async getAllStudentInfo(): Promise<Partial<IUser>> {
+    try {
+      const user = {
+        picture: await this.getPicture(),
+        studentyear: await this.getStudentYear(),
+        promo: await this.getStudentPromo(),
+        location: await this.getStudentLocation(),
+        credits: await this.getStudentCredits(),
+        login: await this.getStudentEmail(),
+        netsoul: await this.getStudentNetsoul(),
+        netsoulNorm: await this.getStudentNetsoulNorm(),
+        gpaInt: await this.getStudentGPA(),
+        cycle: await this.getStudentCycle(),
+        phone: await this.getStudentPhone(),
+      };
+      return user;
+    } catch (error) {
+        throw error;
+      }
   }
 }
 

@@ -2,6 +2,7 @@ import UserService from './services/user.service';
 import ELearningService from './services/elearning.service';
 import PlanningService from './services/planning.service';
 import NotificationsService from './services/notifications.service';
+import ConnectError from './exceptions/ConnectError';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -16,11 +17,11 @@ class EpitechClient {
   constructor(cookie?: string) {
     if (!cookie && !process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
     if (cookie && !cookie.startsWith("user=")) {
-      throw new Error("Could not connect to Epitech Intranet. Please verify your cookie.");
+      throw new ConnectError();
     } else if (cookie) {
       this.cookie = cookie;
     } else {
-      if (!process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
+      if (!process.env.EPITECH_COOKIE) throw new ConnectError('Cookie is required');
       this.cookie = process.env.EPITECH_COOKIE as string;
     }
     this.user = new UserService(this.cookie);
@@ -28,10 +29,10 @@ class EpitechClient {
     this.planning = new PlanningService(this.cookie);
     this.notifications = new NotificationsService(this.cookie);
     this.testConnection().then((connected) => {
-      if (!connected) throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
+      if (!connected) throw new ConnectError();
     }).catch((error) => {
       console.error(error);
-      throw new Error('Could not connect to Epitech Intranet. Please verify your cookie.');
+      throw new ConnectError();
     });
   }
 

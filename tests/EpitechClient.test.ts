@@ -13,8 +13,14 @@ describe("EpitechClient", () => {
         }).not.toThrowError("Could not connect to Epitech Intranet. Please verify your cookie.");
         done();
     });
-    it("should return a valid user name", async () => {
+    it("should return a valid user name when using env", async () => {
         const client = new EpitechClient();
+        const name = await client.user.getStudentName();
+        expect(["Anonymous user", "Alexis FAURE"]).toContain(name);
+        return;
+    });
+    it("should return a valid user name when using string", async () => {
+        const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
         const name = await client.user.getStudentName();
         expect(["Anonymous user", "Alexis FAURE"]).toContain(name);
         return;
