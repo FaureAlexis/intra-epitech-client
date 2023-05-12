@@ -4,6 +4,21 @@
 
 This is a client for the intra-epitech API. It is written in TypeScript and is meant to be used in a NodeJS environment.
 
+The goal of this project is to provide a simple and easy to use client for the intra-epitech API in order to make it easier for epitech students to create their own tools without having to worry about the API (which is not documented).
+
+## Features
+
+EpitechClient is still in development. Here is a list of the features that are already implemented and the ones that are planned.
+
+-   [x] Get student infos
+-   [x] Get elearning infos/videos
+-   [x] Get student planning
+-   [x] Get student notifications
+-   [ ] Get student projects
+-   [ ] Get student modules
+-   [ ] Get student marks
+-   [ ] Access to the intra filesystem
+
 ## Installation
 
 ```npm install intra-epitech-client```
