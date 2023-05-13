@@ -4,7 +4,7 @@ import ElearningResponse, { Step } from "../src/types/ELearning";
 describe("ELearningService", () => {
   test("should failed when using invalid cookie", (done) => {
     const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
-    client.elearning.setCookie("invalid");
+    client.elearning.setCookie("user=invalid");
     client.elearning.getELearning().catch((err: Error) => {
       expect(err.message).toBe("Request failed with status code 403");
       done();

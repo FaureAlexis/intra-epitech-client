@@ -33,8 +33,8 @@ class EpitechClient {
     this.modules = new ModuleService(this.cookie);
     this.testConnection().then((connected) => {
       if (!connected) throw new ConnectError();
-    }).catch((error) => {
-      throw new ConnectError(error.message);
+    }).catch(() => {
+      throw new ConnectError();
     });
   }
 
