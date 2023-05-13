@@ -55,7 +55,7 @@ client.user.getStudentName().then((name) => {
 
 ## Documentation
 
-coming soon
+Documentation is available [here](https://faurealexis.github.io/intra-epitech-client/).
 
 ## Contributing
 
