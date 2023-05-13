@@ -11,6 +11,10 @@ class UserService extends BaseService {
     super(cookie);
   }
 
+  setUser(user: IUser | null): void {
+    this.user = user;
+  }
+
   async getInfo(): Promise<AxiosResponse> {
     try {
       const response = await axios.get(
@@ -25,16 +29,24 @@ class UserService extends BaseService {
   }
 
   async getStaticInfos(): Promise<IUser> {
-    if (!this.user) {
-      await this.getInfo();
+    try {
+      if (!this.user) {
+        await this.getInfo();
+      }
+      return this.user as IUser;
+    } catch (error) {
+      throw error;
     }
-    return this.user as IUser;
   }
 
   async getPicture(): Promise<string> {
-    const user = await this.getStaticInfos();
-    if (!user.picture) throw new Error("User has no picture");
-    return "https://intra.epitech.eu" + user.picture;
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.picture) throw new Error("User has no picture");
+      return "https://intra.epitech.eu" + user.picture;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getStudentName(): Promise<string> {
@@ -42,19 +54,20 @@ class UserService extends BaseService {
       const user = await this.getStaticInfos();
       return `${user.firstname} ${user.lastname}`;
     } catch (error) {
-      return 'Anonymous user';
+      throw error;
     }
   }
 
   async getStudentYear(): Promise<number> {
-    const user = await this.getStaticInfos();
-    if (!user) {
-      throw new Error('Could not find user');
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.studentyear) {
+        throw new Error('User has no student year');
+      }
+      return user.studentyear;
+    } catch (error) {
+      throw error;
     }
-    if (!user.studentyear) {
-      throw new Error('User has no student year');
-    }
-    return user.studentyear;
   }
 
   async getStudentPromo(): Promise<number> {
@@ -62,7 +75,7 @@ class UserService extends BaseService {
       const user = await this.getStaticInfos();
       return user.promo;
     } catch (error) {
-      throw new Error('Could not get user promo');
+      throw error;
     }
   }
 
@@ -71,45 +84,56 @@ class UserService extends BaseService {
       const user = await this.getStaticInfos();
       return user.location;
     } catch (error) {
-      throw new Error('Failed to get student location');
+      throw error;
     }
   }
 
   async getStudentGPA(): Promise<string> {
-    const user = await this.getStaticInfos();
-    if (user.gpa && user.gpa[0]) {
-      return user.gpa[0].gpa;
-    }
-    else {
-      throw new Error('GPA not found');
+    try {
+      const user = await this.getStaticInfos();
+      if (user.gpa && user.gpa[0]) {
+        return user.gpa[0].gpa;
+      }
+      return "Unknown";
+    } catch (error) {
+      throw error;
     }
   }
 
   async getStudentCycle(): Promise<string> {
-    const user = await this.getStaticInfos();
-    if (user && user.gpa && user.gpa.length > 0) {
-      return user.gpa[0].cycle;
+    try {
+      const user = await this.getStaticInfos();
+      if (user && user.gpa && user.gpa.length > 0) {
+        return user.gpa[0].cycle;
+      }
+      return "Unknown";
+    } catch (error) {
+      throw error;
     }
-    return "Unknown";
   }
 
   async getStudentCredits(): Promise<number> {
-    const user = await this.getStaticInfos();
-    if (!user) {
-      throw new Error('Could not find user');
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.credits) {
+        return 0;
+      }
+      return user.credits;
+    } catch (error) {
+      throw error;
     }
-    if (!user.credits) {
-      return 0;
-    }
-    return user.credits;
   }
 
   async getStudentGroups(): Promise<string[]> {
-    const user = await this.getStaticInfos();
-    if (!user.groups) {
-      return [];
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.groups) {
+        return [];
+      }
+      return user.groups.map((group) => group.name);
+    } catch (error) {
+      throw error;
     }
-    return user.groups.map((group) => group.name);
   }
 
   async getStudentEmail(): Promise<string> {
@@ -117,17 +141,16 @@ class UserService extends BaseService {
       const user = await this.getStaticInfos();
       return user.internal_email;
     } catch (error) {
-      console.error(error);
-      return 'No email found';
+      throw error;
     }
   }
 
   async getStudentPhone(): Promise<string> {
-    const user = await this.getStaticInfos();
-    if (user.userinfo.telephone && user.userinfo.telephone.value) {
+    try {
+      const user = await this.getStaticInfos();
       return user.userinfo.telephone.value;
-    } else {
-      throw new Error("Missing phone number");
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -135,17 +158,16 @@ class UserService extends BaseService {
     try {
       const user = await this.getStaticInfos();
       return user.nsstat.active;
-    } catch (e) {
-      throw new Error(`Unable to get netsoul status: ${e}`);
-    }
+    } catch (error) {
+      throw error;    }
   }
 
   async getStudentNetsoulNorm(): Promise<number> {
     try {
       const user = await this.getStaticInfos();
       return user.nsstat.nslog_norm;
-    } catch (e) {
-      throw new Error('Unable to retrieve the netsoul statistics');
+    } catch (error) {
+      throw error;
     }
   }
 
