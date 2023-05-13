@@ -62,4 +62,24 @@ describe("UserService", () => {
         expect(partialUser.login).toBe(user.login);
         return;
     }, 30000);
+    it("should throw an error when using invalid cookie", async () => {
+        const client = new EpitechClient();
+        client.user.setCookie("invalid");
+        client.cookie = "invalid";
+        client.user.setUser(null);
+        await expect(client.user.getPicture()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentPromo()).rejects.toThrow("Request failed with status code 403");
+        client.user.setCookie("invalid");
+        client.cookie = "invalid";
+        client.user.setUser(null);
+        await expect(client.user.getStudentLocation()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentCredits()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentEmail()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentNetsoul()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentNetsoulNorm()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentGPA()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentCycle()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentPhone()).rejects.toThrow("Request failed with status code 403");
+        await expect(client.user.getStudentYear()).rejects.toThrow("Request failed with status code 403");
+    }, 30000);
 });
