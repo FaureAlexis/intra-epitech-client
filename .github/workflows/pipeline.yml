@@ -82,6 +82,7 @@ jobs:
       - name: Generate JSDoc
         run: jsdoc -r ./src/ README.md -c jsdoc.json
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
