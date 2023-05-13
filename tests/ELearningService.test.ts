@@ -15,15 +15,19 @@ describe("ELearningService", () => {
     }
   }, 30000);
   test("should return valid elearning", (done) => {
-    const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
-    client.elearning.getELearning().then((elearning: ElearningResponse) => {
-      expect(elearning).toBeInstanceOf(Object);
-      expect(elearning).toHaveProperty("-2");
-      expect(elearning["-2"]).toHaveProperty("modules");
-      done();
-    }).catch((err: Error) => {
+    try {
+      const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
+      client.elearning.getELearning().then((elearning: ElearningResponse) => {
+        expect(elearning).toBeInstanceOf(Object);
+        expect(elearning).toHaveProperty("-2");
+        expect(elearning["-2"]).toHaveProperty("modules");
+        done();
+      }).catch((err: Error) => {
+        done(err);
+      });
+    } catch (err) {
       done(err);
-    });
+    }
   }, 30000);
   test("should return valid elearning for a specific module", (done) => {
     const client = new EpitechClient(process.env.EPITECH_COOKIE as string);
