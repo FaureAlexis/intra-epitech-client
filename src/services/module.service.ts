@@ -5,11 +5,20 @@ import axios from "axios";
 import getAxiosConfig from "../utils/AxiosConfig";
 
 class ModuleService extends BaseService {
+  /**
+   * Creates an instance of ModuleService.
+   * @param {string} cookie - The cookie value.
+   */
   constructor(cookie: string) {
     super(cookie);
   }
 
-  async getStudentModulesForCurrentYear(): Promise<Item[]> {
+  /**
+   * Retrieves the student modules for the current academic year.
+   * @returns {Promise<Item[]>} A promise that resolves to an array of student modules.
+   * @throws {Error} If an error occurs during the API request.
+   */
+  async getStudentModulesForCurrentYear() {
     try {
       let scolaryear = new Date().getFullYear();
       if (new Date().getMonth() < 8) {
@@ -27,4 +36,3 @@ class ModuleService extends BaseService {
 }
 
 export default ModuleService;
-

@@ -4,14 +4,29 @@ import getAxiosConfig from "../utils/AxiosConfig";
 import axios, { AxiosResponse } from "axios";
 
 class PlanningService extends BaseService {
+  /**
+   * Planning object.
+   * @type {Planning | undefined}
+   * @private
+   */
   private planning?: Planning;
+
+  /**
+   * Creates an instance of PlanningService.
+   * @param {string} cookie - The cookie value.
+   */
   constructor(cookie: string) {
     super(cookie);
   }
 
-  async getWholePlanning(): Promise<Planning> {
+  /**
+   * Retrieves the whole planning.
+   * If the planning has not been fetched yet, it calls the API to fetch it.
+   * @returns {Promise<Planning>} A promise that resolves to the whole planning.
+   */
+  async getWholePlanning() {
     if (!this.planning) {
-      const response: AxiosResponse = await axios.get(
+      const response = await axios.get(
         "https://intra.epitech.eu/planning/load?format=json",
         getAxiosConfig(this.cookie)
       );
@@ -23,7 +38,11 @@ class PlanningService extends BaseService {
     return this.planning as Planning;
   }
 
-  async getWeekPlanning(): Promise<Planning> {
+  /**
+   * Retrieves the planning for the current week.
+   * @returns {Promise<Planning>} A promise that resolves to the planning for the current week.
+   */
+  async getWeekPlanning() {
     const today = new Date();
     const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1))
       .toISOString().split('T')[0];
@@ -39,7 +58,11 @@ class PlanningService extends BaseService {
     return response.data as Planning;
   }
 
-  async getTodayPlanning(): Promise<Planning> {
+  /**
+   * Retrieves the planning for today.
+   * @returns {Promise<Planning>} A promise that resolves to the planning for today.
+   */
+  async getTodayPlanning() {
     const today = new Date().toISOString().split('T')[0];
     const response = await axios.get(
       `https://intra.epitech.eu/planning/load?format=json&start=${today}&end=${today}`,
