@@ -1,7 +1,7 @@
 import BaseService from "./base.service";
 import Planning from "../types/Planning";
 import getAxiosConfig from "../utils/AxiosConfig";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 class PlanningService extends BaseService {
   /**

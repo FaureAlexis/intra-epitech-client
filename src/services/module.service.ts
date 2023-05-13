@@ -18,7 +18,7 @@ class ModuleService extends BaseService {
    * @returns {Promise<Item[]>} A promise that resolves to an array of student modules.
    * @throws {Error} If an error occurs during the API request.
    */
-  async getStudentModulesForCurrentYear() {
+  async getStudentModulesForCurrentYear(): Promise<Item[]> {
     try {
       let scolaryear = new Date().getFullYear();
       if (new Date().getMonth() < 8) {

@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import BaseService from "./base.service";
 import getAxiosConfig from "../utils/AxiosConfig";
 import IUser from "../types/User";
