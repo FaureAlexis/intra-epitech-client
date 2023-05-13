@@ -67,8 +67,7 @@ class ELearningService extends BaseService {
   /**
    * Retrieves the videos for a given module.
    * @param {string} moduleName - The name of the module.
-   * @returns {Promise<Array<{ title: string; step: Step }> | null>} A promise that resolves to an array of videos for the given module,
-   * or null if the module does not exist.
+   * @returns {Promise<Array<{ title: string; step: Step }> | null>} A promise that resolves to an array of videos for the given module, or null if the module does not exist.
    */
   async getModuleVideos(moduleName: string): Promise<Array<{ title: string; step: Step }> | null> {
     const modules = await this.getStaticInfos();

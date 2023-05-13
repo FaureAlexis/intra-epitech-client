@@ -1,0 +1,14 @@
+{
+    "tags": {
+        "allowUnknownTags": ["optional"]
+    },
+    "opts": {
+        "template": "node_modules/better-docs"
+    },
+    "plugins": [
+        "node_modules/better-docs/typescript"
+    ],
+    "source": {
+        "includePattern": "\\.(jsx|js|ts|tsx)$"
+    }
+}

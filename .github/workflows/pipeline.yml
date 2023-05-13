@@ -64,3 +64,23 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           EPITECH_COOKIE: ${{ secrets.EPITECH_COOKIE }}
+
+  doc:
+    name: Generate documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Install JSDoc and dependencies
+        run: npm install --global jsdoc better-docs taffydb
+      - name: Generate JSDoc
+        run: jsdoc -r ./src/ README.md -c jsdoc.json
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
