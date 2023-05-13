@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> user.service.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BaseService.html">BaseService</a></li><li><a href="BaseService_BaseService.html">BaseService</a></li><li><a href="ELearningService.html">ELearningService</a></li><li><a href="ELearningService_ELearningService.html">ELearningService</a></li><li><a href="ModuleService.html">ModuleService</a></li><li><a href="NotificationsService.html">NotificationsService</a></li><li><a href="PlanningService.html">PlanningService</a></li><li><a href="UserService.html">UserService</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>user.service.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-useless-catch */
+import axios, { AxiosResponse } from "axios";
+import BaseService from "./base.service";
+import getAxiosConfig from "../utils/AxiosConfig";
+import IUser from "../types/User";
+
+class UserService extends BaseService {
+  /**
+   * User object.
+   * @type {IUser | null}
+   * @private
+   */
+  private user: IUser | null = null;
+
+  /**
+   * Creates an instance of UserService.
+   * @param {string} cookie - The cookie value.
+   */
+  constructor(cookie: string) {
+    super(cookie);
+  }
+
+  /**
+   * Sets the user object.
+   * @param {IUser | null} user - The user object to set.
+   * @returns {void}
+   */
+  setUser(user: IUser | null) {
+    this.user = user;
+  }
+
+  /**
+   * Retrieves user information from the API.
+   * @returns {Promise&lt;AxiosResponse>} A promise that resolves to the Axios response.
+   */
+  async getInfo() {
+    try {
+      const response = await axios.get(
+        "https://intra.epitech.eu/user/?format=json",
+        getAxiosConfig(this.cookie)
+      );
+      this.user = response.data;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves static user information.
+   * If the user information has not been fetched yet, it calls the API to fetch it.
+   * @returns {Promise&lt;IUser>} A promise that resolves to the static user information.
+   */
+  async getStaticInfos() {
+    try {
+      if (!this.user) {
+        await this.getInfo();
+      }
+      return this.user as IUser;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's picture.
+   * @returns {Promise&lt;string>} A promise that resolves to the URL of the user's picture.
+   * @throws {Error} If the user has no picture.
+   */
+  async getPicture() {
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.picture) throw new Error("User has no picture");
+      return "https://intra.epitech.eu" + user.picture;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's full name.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's full name.
+   */
+  async getStudentName() {
+    try {
+      const user = await this.getStaticInfos();
+      return `${user.firstname} ${user.lastname}`;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's student year.
+   * @returns {Promise&lt;number>} A promise that resolves to the user's student year.
+   * @throws {Error} If the user has no student year.
+   */
+  async getStudentYear() {
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.studentyear) {
+        throw new Error("User has no student year");
+      }
+      return user.studentyear;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's promo.
+   * @returns {Promise&lt;number>} A promise that resolves to the user's promo.
+   */
+  async getStudentPromo() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.promo;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's location.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's location.
+   */
+  async getStudentLocation() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.location;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+    /**
+   * Retrieves the user's GPA.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's GPA or "Unknown" if it is not available.
+   */
+  async getStudentGPA() {
+    try {
+      const user = await this.getStaticInfos();
+      if (user.gpa &amp;&amp; user.gpa[0]) {
+        return user.gpa[0].gpa;
+      }
+      return "Unknown";
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's cycle.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's cycle or "Unknown" if it is not available.
+   */
+  async getStudentCycle() {
+    try {
+      const user = await this.getStaticInfos();
+      if (user &amp;&amp; user.gpa &amp;&amp; user.gpa.length > 0) {
+        return user.gpa[0].cycle;
+      }
+      return "Unknown";
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's credits.
+   * @returns {Promise&lt;number>} A promise that resolves to the user's credits or 0 if it is not available.
+   */
+  async getStudentCredits() {
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.credits) {
+        return 0;
+      }
+      return user.credits;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's groups.
+   * @returns {Promise&lt;string[]>} A promise that resolves to an array of the user's group names or an empty array if there are no groups.
+   */
+  async getStudentGroups() {
+    try {
+      const user = await this.getStaticInfos();
+      if (!user.groups) {
+        return [];
+      }
+      return user.groups.map((group) => group.name);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's internal email.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's internal email.
+   */
+  async getStudentEmail() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.internal_email;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's phone number.
+   * @returns {Promise&lt;string>} A promise that resolves to the user's phone number.
+   */
+  async getStudentPhone() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.userinfo.telephone.value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+    /**
+   * Retrieves the user's Netsoul active status.
+   * @returns {Promise&lt;number>} A promise that resolves to the user's Netsoul active status.
+   */
+  async getStudentNetsoul() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.nsstat.active;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves the user's Netsoul norm.
+   * @returns {Promise&lt;number>} A promise that resolves to the user's Netsoul norm.
+   */
+  async getStudentNetsoulNorm() {
+    try {
+      const user = await this.getStaticInfos();
+      return user.nsstat.nslog_norm;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Retrieves all available information about the student.
+   * @returns {Promise&lt;Partial&lt;IUser>>} A promise that resolves to an object containing various student information.
+   */
+  async getAllStudentInfo() {
+    try {
+      const user = {
+        picture: await this.getPicture(),
+        studentyear: await this.getStudentYear(),
+        promo: await this.getStudentPromo(),
+        location: await this.getStudentLocation(),
+        credits: await this.getStudentCredits(),
+        login: await this.getStudentEmail(),
+        netsoul: await this.getStudentNetsoul(),
+        netsoulNorm: await this.getStudentNetsoulNorm(),
+        gpaInt: await this.getStudentGPA(),
+        cycle: await this.getStudentCycle(),
+        phone: await this.getStudentPhone(),
+      };
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export default UserService;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
