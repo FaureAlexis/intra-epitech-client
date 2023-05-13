@@ -75,8 +75,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - name: Install JSDoc and dependencies
-        run: npm install --global jsdoc better-docs taffydb
+      - name: Install JSDoc
+        run: npm install -g jsdoc
+      - name: Install dependencies
+        run: npm install
       - name: Generate JSDoc
         run: jsdoc -r ./src/ README.md -c jsdoc.json
       - name: Deploy to GitHub Pages
