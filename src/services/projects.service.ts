@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import BaseService from "./base.service";
 import axios from "axios";
 import getAxiosConfig from "../utils/AxiosConfig";
@@ -22,6 +23,6 @@ class ProjectService extends BaseService {
             throw error;
         }
     }  
-};
+}
 
 export default ProjectService;
