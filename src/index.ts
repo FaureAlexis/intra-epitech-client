@@ -4,6 +4,7 @@ import PlanningService from './services/planning.service';
 import NotificationsService from './services/notifications.service';
 import ModuleService from './services/module.service';
 import ConnectError from './exceptions/ConnectError';
+import ProjectService from './services/projects.service';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,6 +16,7 @@ class EpitechClient {
   planning: PlanningService;
   notifications: NotificationsService;
   modules: ModuleService;
+  projects: ProjectService;
 
   constructor(cookie?: string) {
     if (!cookie && !process.env.EPITECH_COOKIE) throw new Error('Cookie is required');
@@ -31,6 +33,7 @@ class EpitechClient {
     this.planning = new PlanningService(this.cookie);
     this.notifications = new NotificationsService(this.cookie);
     this.modules = new ModuleService(this.cookie);
+    this.projects = new ProjectService(this.cookie);
     this.testConnection().then((connected) => {
       if (!connected) throw new ConnectError();
     }).catch(() => {
