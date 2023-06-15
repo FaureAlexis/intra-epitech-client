@@ -5,7 +5,7 @@ import axios from "axios";
 import getAxiosConfig from "../utils/AxiosConfig";
 
 class ModuleService extends BaseService {
-  private currentYear: number = 0;
+  private currentYear = 0;
   /**
    * Creates an instance of ModuleService.
    * @param {string} cookie - The cookie value.
