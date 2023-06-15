@@ -34,7 +34,7 @@ class ProjectService extends BaseService {
     async getProjectFiles(path: string): Promise<FileData[]> {
         try {
             const response = await axios.get(
-                `https://intra.epitech.eu/module${path}/file/?format=json`,
+                `https://intra.epitech.eu/module${path}/project/file/?format=json`,
                 getAxiosConfig(this.cookie)
             );
             return response.data;
